@@ -5,7 +5,6 @@
 
 let express = require('express');
 let router = express.Router();
-//let tokenValidator = require('../../util/token.validator');
 let UserController = require('../../controllers/user.controller');
 
 router.get('/', UserController.getAll);
