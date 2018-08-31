@@ -38,7 +38,7 @@ module.exports = function () {
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(bodyParser.json());
 
-    app.use('/', require('../src/index'));
+    app.use('/', require('../src/routes/api.routes'));
 
 
     var server = app.listen(8081, function () {
@@ -46,7 +46,7 @@ module.exports = function () {
     });
 
     var io = require('socket.io').listen(server);
-    
+
     load('models', {cwd: 'app'})
         .then('controllers')
         .then('routes')
