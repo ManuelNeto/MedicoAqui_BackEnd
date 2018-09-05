@@ -5,7 +5,7 @@
 
 let express = require('express');
 let router = express.Router();
-let MedicalAppointmentController = require('../../controllers/medical_appointment.controller');
+let MedicalAppointmentController = require('./medicalAppointment.controller');
 
 router.get('/', MedicalAppointmentController.getAll);
 router.get('/:id', MedicalAppointmentController.getMedicalAppointment);
