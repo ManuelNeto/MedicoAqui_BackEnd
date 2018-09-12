@@ -65,7 +65,7 @@ exports.editMedicalAppointment = function (req, res) {
 
 };
 
-exports.deleteMedicalAppointmentr =  function(req, res, next) {
+exports.deleteMedicalAppointment =  function(req, res, next) {
 
     if(!req.params.id){
       return responses.badRequest(res, 'MEDICALAPPOINTMENT_NOT_FOUND');

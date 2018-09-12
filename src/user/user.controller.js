@@ -42,23 +42,16 @@ exports.getUser = function(req, res, next) {
 };
 
 exports.createUser = function (req, res) {
-
   if (req.body.password === '' || !req.body.password){
       res.status(400).send({ error: "Senha vazia" });
   } else {
-      var password = req.body.password;
-      delete req.body.password;
       var user = new User(req.body);
-      user.setPassword(password);
 
       user.save(function (err, next) {
           if (err) {
               return responses.badRequest(res, "DUPLICATE_EMAIL");
           }
-
-          let token = jwt.sign({id: next._id}, 'dna8A7D8A7y8d&H*&d*&*D7', {expiresIn: 86400});
-          return responses.created(res, 'SUCCESSFUL_USER_CREATION', {name: user.name, token: token});
-
+          return responses.created(res, 'SUCCESSFUL_USER_CREATION', {name: user.name});
       });
 
   }
@@ -66,23 +59,12 @@ exports.createUser = function (req, res) {
 
 exports.editUser = function (req, res) {
 
-  var password = "";
-  if (req.body.password){
-      password = req.body.password;
-      delete req.body.password;
-      delete req.body.cpassword;
-  }
-    delete  req.body.__v;
-
   var user = new User(req.body);
 
   if(!user){
     return responses.badRequest(res, 'USER_REQUIRED');
   }
-
-    if (password && password !== '')
-        user.setPassword(password)
-
+  
   User.findOneAndUpdate({_id: req.body._id}, user, {upsert: true, 'new': true}, function (err, updatedUser) {
 
     if(err){
