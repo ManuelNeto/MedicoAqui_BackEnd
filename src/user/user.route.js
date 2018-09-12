@@ -5,7 +5,7 @@
 
 let express = require('express');
 let router = express.Router();
-let UserController = require('../../controllers/user.controller');
+let UserController = require('./user.controller');
 
 router.get('/', UserController.getAll);
 router.get('/:id', UserController.getUser);

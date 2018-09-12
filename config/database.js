@@ -2,10 +2,7 @@ var mongoose = require('mongoose');
 
 module.exports = function(uri) {
 
-	mongoose.connect(uri, {
-	  useMongoClient: true
-	  /* other options */
-	});
+	mongoose.connect(uri);
 
 	mongoose.connection.on('connected', function() {
 	console.log('Mongoose! Connected on ' + uri);

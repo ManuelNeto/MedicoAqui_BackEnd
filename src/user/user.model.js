@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
+var crypto = require('crypto');
 
-var userSchema = mongoose.Schema({
+var UserSchema = mongoose.Schema({
 
     name: {
         type: String,
@@ -37,10 +38,27 @@ var userSchema = mongoose.Schema({
 
     userKind: {
         type:String,
+        required: true,
         enum: ['Doctor', 'Patient']
-    }
+    },
+    hash: String,
+    salt: String
 });
 
-var User = mongoose.model('User', userSchema);
+UserSchema.methods.setPassword = function (password){
+    this.salt = crypto.randomBytes(16).toString('hex');
+    UserSchema.salt = this.salt;
+    this.hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha1').toString('hex');
+    console.log(this.hash);
+    UserSchema.hash = this.hash;
+};
+
+UserSchema.methods.validPassword = function(password) {
+    var hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha1').toString('hex');
+    return this.hash === hash;
+};
+
+
+var User = mongoose.model('User', UserSchema);
 
 module.exports = User;

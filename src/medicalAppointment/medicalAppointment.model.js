@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var User = require('./user.model');
+var User = require('../user/user.model');
 
 var medical_appointmentSchema = mongoose.Schema({
 
@@ -23,13 +23,13 @@ var medical_appointmentSchema = mongoose.Schema({
     },
 
     prognostic: {
-        type: string,
+        type: String,
         required: true
     }
 
 
 });
 
-var Medical_appointment = mongoose.model('Medical_appointment', medical_appointmentSchema);
+var medicalAppointment = mongoose.model('Medical_appointment', medical_appointmentSchema);
 
-module.exports = Medical_appointment;
+module.exports = medicalAppointment;
