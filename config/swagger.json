@@ -1,0 +1,361 @@
+{
+    "swagger" : "2.0",
+    "info" : {
+      "description" : "A Web Development class project.",
+      "version" : "0.0.2",
+      "title" : "Médico Aqui.",
+      "license" : {
+        "name" : "MIT",
+        "url" : "https://opensource.org/licenses/MIT"
+      }
+    },
+    
+    "host" : "localhost:8081",
+    "basePath" : "/",
+    "tags" : [ {
+      "name" : "User",
+      "description" : "API for users in the system"
+    } ],
+    "schemes" : [ "https", "http" ],
+    "consumes" : [ "application/json" ],
+    "produces" : [ "application/json" ],
+    "paths" : {
+      "/user" : {
+        "get" : {
+          "tags" : [ "User" ],
+          "summary" : "Get all users in system",
+          "parameters" : [ ],
+          "responses" : {
+            "200" : {
+              "description" : "OK",
+              "schema" : {
+                "$ref" : "#/definitions/User"
+              }
+            },
+            "401": {
+              "description": "Unauthorized: "
+            }
+          }
+        },
+        "post" : {
+          "tags" : [ "User" ],
+          "summary" : "Create new User in system",
+          "produces" : [ "application/json" ],
+          "parameters" : [ {
+            "in" : "body",
+            "name" : "user",
+            "description" : "User that we want to create",
+            "required" : false,
+            "schema" : {
+              "$ref" : "#/definitions/User"
+            }
+          } ],
+          "responses" : {
+            "201" : {
+              "description" : "New user is created",
+              "schema" : {
+                "$ref" : "#/definitions/User"
+              }
+            }
+          }
+        }
+      },
+      "/user/{userId}" : {
+        "get" : {
+          "tags" : [ "User" ],
+          "summary" : "Get user with given ID",
+          "parameters" : [ {
+            "name" : "userId",
+            "in" : "path",
+            "description" : "ID of user that we want to find",
+            "required" : true,
+            "type" : "string"
+          } ],
+          "responses" : {
+            "200" : {
+              "description" : "User is found",
+              "schema" : {
+                "$ref" : "#/definitions/User"
+              }
+            }
+          }
+        },
+        "put" : {
+          "tags" : [ "User" ],
+          "summary" : "Update user with give ID",
+          "parameters" : [ {
+            "name" : "userId",
+            "in" : "path",
+            "description" : "ID of user that we want to find",
+            "required" : true,
+            "type" : "string"
+          }, {
+            "in" : "body",
+            "name" : "user",
+            "description" : "User with new values of properties",
+            "required" : false,
+            "schema" : {
+              "$ref" : "#/definitions/User"
+            }
+          } ],
+          "responses" : {
+            "200" : {
+              "description" : "User is updated",
+              "schema" : {
+                "$ref" : "#/definitions/User"
+              }
+            }
+          }
+        },
+        "delete" : {
+          "tags" : [ "User" ],
+          "summary" : "Delete user with given ID",
+          "parameters" : [ {
+            "name" : "userId",
+            "in" : "path",
+            "description" : "ID of user that we want to find",
+            "required" : true,
+            "type" : "string"
+          } ],
+          "responses" : {
+            "200" : {
+              "description" : "User is deleted",
+              "schema" : {
+                "$ref" : "#/definitions/User"
+              }
+            }
+          }
+        }
+      },
+      "/auth" : {
+        "post" : {
+          "tags" : [ "Auth" ],
+          "summary" : "Attempt to log use in system",
+          "produces" : [ "application/json" ],
+          "parameters" : [ {
+            "in" : "body",
+            "name" : "user",
+            "description" : "User that we want to login with",
+            "required" : false,
+            "schema" : {
+              "$ref" : "#/definitions/Auth"
+            }
+          } ],
+          "responses" : {
+            "200" : {
+              "description" : "User token generated",
+              "schema" : {
+                "$ref" : "#/definitions/Token"
+              }
+            },
+            "401" : {
+              "description" : "Invalid user e-mail or password"
+            }
+          }
+        }
+      }
+    },
+
+    "/medicalAppointment": {
+        "get" : {
+            "tags" : [ "MedicalAppointment" ],
+            "summary" : "Get all MedicalAppointment in system",
+            "parameters" : [ ],
+            "responses" : {
+              "200" : {
+                "description" : "OK",
+                "schema" : {
+                  "$ref" : "#/definitions/MedicalAppointment"
+                }
+              },
+              "401": {
+                "description": "Unauthorized: "
+              }
+            }
+          },
+          "post" : {
+            "tags" : [ "MedicalAppointment" ],
+            "summary" : "Create new Medical Appointment in system",
+            "produces" : [ "application/json" ],
+            "parameters" : [ {
+              "in" : "body",
+              "name" : "user",
+              "description" : "MedicalAppointment that we want to create",
+              "required" : false,
+              "schema" : {
+                "$ref" : "#/definitions/User"
+              }
+            } ],
+            "responses" : {
+              "201" : {
+                "description" : "New Medical Appointment is created",
+                "schema" : {
+                  "$ref" : "#/definitions/User"
+                }
+              }
+            }
+          },
+
+        "/medicalAppointment/{medicalAppointmentId}" : {
+          "get" : {
+            "tags" : [ "MedicalAppointment" ],
+            "summary" : "Get medical appointment with given ID",
+            "parameters" : [ {
+              "name" : "medicalAppointmentId",
+              "in" : "path",
+              "description" : "ID of medical appointment that we want to find",
+              "required" : true,
+              "type" : "string"
+            } ],
+            "responses" : {
+              "200" : {
+                "description" : "Medical Appointment is found",
+                "schema" : {
+                  "$ref" : "#/definitions/MedicalAppointment"
+                }
+              }
+            }
+          },
+          "put" : {
+            "tags" : [ "MedicalAppointment" ],
+            "summary" : "Update medical appointment with give ID",
+            "parameters" : [ {
+              "name" : "medicalAppointmentId",
+              "in" : "path",
+              "description" : "ID of medical appointment that we want to find",
+              "required" : true,
+              "type" : "string"
+            }, {
+              "in" : "body",
+              "name" : "medicalAppointment",
+              "description" : "Medical Appointment with new values of properties",
+              "required" : false,
+              "schema" : {
+                "$ref" : "#/definitions/MedicalAppointment"
+              }
+            } ],
+            "responses" : {
+              "200" : {
+                "description" : "Medical Appointment is updated",
+                "schema" : {
+                  "$ref" : "#/definitions/MedicalAppointment"
+                }
+              }
+            }
+          },
+          "delete" : {
+            "tags" : [ "MedicalAppointment" ],
+            "summary" : "Delete medical appointment with given ID",
+            "parameters" : [ {
+              "name" : "medicalAppointmentId",
+              "in" : "path",
+              "description" : "ID of medical appointment that we want to find",
+              "required" : true,
+              "type" : "string"
+            } ],
+            "responses" : {
+              "200" : {
+                "description" : "Medical Appointment is deleted",
+                "schema" : {
+                  "$ref" : "#/definitions/MedicalAppointment"
+                }
+              }
+            }
+          }
+        },
+        "/auth" : {
+          "post" : {
+            "tags" : [ "Auth" ],
+            "summary" : "Attempt to log use in system",
+            "produces" : [ "application/json" ],
+            "parameters" : [ {
+              "in" : "body",
+              "name" : "user",
+              "description" : "User that we want to login with",
+              "required" : false,
+              "schema" : {
+                "$ref" : "#/definitions/Auth"
+              }
+            } ],
+            "responses" : {
+              "200" : {
+                "description" : "User token generated",
+                "schema" : {
+                  "$ref" : "#/definitions/Token"
+                }
+              },
+              "401" : {
+                "description" : "Invalid user e-mail or password"
+              }
+            }
+          }
+        }
+    },
+
+    "definitions" : {
+      "User" : {
+        "required" : [ "email", "name", "password", "age", "userKind" ],
+        "properties" : {
+          "email" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "password" : {
+            "type" : "string"
+          },
+          "age" : {
+            "type" : "number"
+          },
+          "specialty" : {
+            "type" : "string"
+          },
+          "available_times" : {
+            "type" : "string"
+          },
+          "userKind" : {
+            "type" : "string"
+          }
+        },
+        "example" : {
+          "name" : "Name",
+          "email" : "user@email.com",
+          "password" : "userPassword",
+          "userKind" : "Patient",
+          "age": 22
+        }
+      },
+
+      "MedicalAppointment" : {
+
+      },
+
+      "Auth" : {
+        "required" : [ "email", "password" ],
+        "properties" : {
+          "email" : {
+            "type" : "string"
+          },
+          "password" : {
+            "type" : "string"
+          }
+        },
+        "example" : {
+          "email" : "user@email.com",
+          "password" : "userPassword"
+        }
+      },
+      "Token" : {
+        "required" : [ "x-access-token" ],
+        "properties" : {
+          "x-access-token" : {
+            "type" : "string"
+          }
+        },
+        "example" : {
+          "x-access-token" : "eyJhbGciI1NiIsInR5cC.eyJlbWFpbTc2MTEzfQ.jJhI2hgPM4ZV--mSB9tHSY"
+        }
+      }
+    }
+  }
