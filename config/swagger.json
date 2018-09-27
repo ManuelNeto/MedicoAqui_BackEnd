@@ -15,7 +15,14 @@
     "tags" : [ {
       "name" : "User",
       "description" : "API for users in the system"
-    } ],
+    },
+    
+    {
+      "name" : "MedicalAppointment",
+      "description" : "API for medical appointment in the system"
+    }
+
+    ],
     "schemes" : [ "https", "http" ],
     "consumes" : [ "application/json" ],
     "produces" : [ "application/json" ],
@@ -153,10 +160,9 @@
             }
           }
         }
-      }
-    },
+      },
 
-    "/medicalAppointment": {
+      "/medicalAppointment": {
         "get" : {
             "tags" : [ "MedicalAppointment" ],
             "summary" : "Get all MedicalAppointment in system",
@@ -194,7 +200,8 @@
                 }
               }
             }
-          },
+          }
+        },
 
         "/medicalAppointment/{medicalAppointmentId}" : {
           "get" : {
@@ -263,6 +270,7 @@
             }
           }
         },
+
         "/auth" : {
           "post" : {
             "tags" : [ "Auth" ],
@@ -291,7 +299,7 @@
           }
         }
     },
-
+  
     "definitions" : {
       "User" : {
         "required" : [ "email", "name", "password", "age", "userKind" ],
@@ -328,7 +336,29 @@
       },
 
       "MedicalAppointment" : {
+        "requeired" : ["doctor", "patient", "time", "prognostic"],
+        "properties" : {
+          "doctor": {
+            "type": "objectId"
+          },
+          "patient": {
+            "type": "objectId"
+          },
 
+          "time": {
+            "type": "[date]"
+          },
+
+          "prognostic": {
+            "type": "string"
+          }
+        },
+        "example" : {
+          "doctor": "8768w76ebvcwe76ewe6w5e",
+          "patient": "765ds7dc765ew76dw765ddw",
+          "time": ["25/02/2018"] ,
+          "prognostic": "prognostic"
+        }
       },
 
       "Auth" : {
