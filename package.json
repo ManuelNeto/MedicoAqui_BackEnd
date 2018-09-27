@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "c"
+    "test": "NODE_ENV=test mocha — timeout 10000"
   },
   "repository": {
     "type": "git",
@@ -42,8 +42,10 @@
     "swagger-ui-express": "^4.0.1"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
     "chakram": "^1.5.0",
     "chakram-joi": "^1.0.0",
-    "mocha": "^3.5.3"
+    "mocha": "^5.2.0",
+    "supertest": "^3.3.0"
   }
 }
