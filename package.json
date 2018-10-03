@@ -1,10 +1,12 @@
 {
-  "name": "Médico Aqui",
+  "name": "MedicoAqui",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=test mocha — timeout 10000"
+    "start": "nodemon app.js",
+    "test": "NODE_ENV=test mocha --timeout 10000",
+    "test-coverage": "NODE_ENV=test istanbul cover _mocha -- -R spec"
   },
   "repository": {
     "type": "git",
@@ -16,36 +18,24 @@
     "url": "https://github.com/ManuelNeto/MedicoAqui_BackEnd/issues"
   },
   "homepage": "https://github.com/ManuelNeto/MedicoAqui_BackEnd#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "install": "^0.8.8",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.2.0",
+    "nodemon": "^1.11.0",
+    "npm": "^4.4.4",
+    "supertest": "^3.0.0"
+  },
   "dependencies": {
-    "archiver": "^1.3.0",
-    "body-parser": "^1.18.3",
-    "chakram": "^1.5.0",
+    "body-parser": "^1.15.2",
     "cors": "^2.8.4",
-    "crypto": "^1.0.1",
     "ejs": "^2.6.1",
-    "express": "^4.16.3",
-    "express-jwt": "^5.3.0",
-    "express-load": "^1.1.16",
-    "express-session": "^1.15.6",
-    "fast-csv": "^2.4.1",
+    "express": "^4.14.0",
     "http-status-codes": "^1.3.0",
     "jsonwebtoken": "^8.3.0",
     "mongo-errors": "^1.0.1",
-    "mongoose": "^5.2.12",
-    "morgan": "^1.9.0",
-    "multer": "^1.3.0",
-    "node-schedule": "^1.3.0",
-    "nodemon": "^1.11.0",
-    "passport": "^0.4.0",
-    "passport-local": "^1.0.0",
-    "socket.io": "^2.1.1",
+    "mongoose": "^4.7.2",
     "swagger-ui-express": "^4.0.1"
-  },
-  "devDependencies": {
-    "chai": "^4.2.0",
-    "chakram": "^1.5.0",
-    "chakram-joi": "^1.0.0",
-    "mocha": "^5.2.0",
-    "supertest": "^3.3.0"
   }
 }
