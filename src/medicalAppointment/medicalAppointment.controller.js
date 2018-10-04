@@ -16,11 +16,11 @@ const MedicalAppointment = require('./medicalAppointment.model');
 exports.getAll = function (req, res) {
 
     MedicalAppointment.find(function (err, medicalAppointments) {
-        if(err) return responses.internalError(res);
+        if(err) return res.send(responses.internalError());
         else if(!medicalAppointments){
-            return responses.notFound(res, 'MEDICALAPPOINTMENT_NOT_FOUND');
+            return res.send(responses.notFound('MEDICALAPPOINTMENT_NOT_FOUND'));
         }
-        return responses.ok(res, '', medicalAppointments);
+        return res.send(responses.ok('', medicalAppointments));
     });
 
 };
@@ -29,12 +29,12 @@ exports.getMedicalAppointment = function(req, res, next) {
 
     MedicalAppointment.findOne({_id: req.params.id}, function(err, medicalAppointment) {
 
-        if(err) return responses.internalError(res);
+        if(err) return res.send(responses.internalError());
 
         else if(!medicalAppointment){
-            return responses.notFound(res, 'MEDICALAPPOINTMENT_NOT_FOUND');
+            return res.send(responses.notFound('MEDICALAPPOINTMENT_NOT_FOUND'));
         }
-        return responses.ok(res, '', medicalAppointment);
+        return res.send(responses.ok('', medicalAppointment));
     });
 };
 
@@ -44,23 +44,23 @@ exports.createMedicalAppointment = function (req, res) {
     
       medicalAppointment.save(function (err, next) {
           if (err) {
-              return responses.badRequest(res, "DUPLICATE_MEDICALAPPOINTMENT");
+              return res.send(responses.badRequest("DUPLICATE_MEDICALAPPOINTMENT"));
           }
-          return responses.created(res, 'SUCCESSFUL_MEDICALAPPOINTMENT_CREATION');
+          return res.send(responses.created('SUCCESSFUL_MEDICALAPPOINTMENT_CREATION'));
       });
 };
 
 exports.editMedicalAppointment = function (req, res) {
 
     if(!req.body._id){
-        return responses.badRequest(res, 'MEDICALAPPOINTMENT_REQUIRED');
+        return res.send(responses.badRequest('MEDICALAPPOINTMENT_REQUIRED'));
     }
 
-    MedicalAppointment.findOneAndUpdate({_id: req.body._id}, medicalAppointment, {upsert: true, 'new': true}, function (err, updatedMedicalAppointment) {
+    MedicalAppointment.findOneAndUpdate({_id: req.body._id}, req.body, {upsert: true, 'new': true}, function (err, updatedMedicalAppointment) {
         if(err){
-            return responses.internalError(res);
+            return res.send(responses.internalError());
         }
-        return responses.ok(res, 'UPDATED_MEDICALAPPOINTMENT', updatedMedicalAppointment);
+        return res.send(responses.ok('UPDATED_MEDICALAPPOINTMENT', updatedMedicalAppointment));
     });
 
 };
@@ -68,12 +68,12 @@ exports.editMedicalAppointment = function (req, res) {
 exports.deleteMedicalAppointment =  function(req, res, next) {
 
     if(!req.params.id){
-      return responses.badRequest(res, 'MEDICALAPPOINTMENT_NOT_FOUND');
+      return res.send(responses.badRequest('MEDICALAPPOINTMENT_NOT_FOUND'));
     }
 
     MedicalAppointment.remove({_id: req.params.id}, function(err) {
-        if(err) return responses.internalError(res);
-        return responses.ok(res, 'REMOVED_MEDICALAPPOINTMENT');
+        if(err) return res.send(responses.internalError());
+        return res.send(responses.ok('REMOVED_MEDICALAPPOINTMENT'));
     });
 
 };

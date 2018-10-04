@@ -9,35 +9,31 @@ const express = require('express');
 const router = express.Router();
 const responses = require('../util/responses');
 const jwt = require('jsonwebtoken');
-
-
-
 const User = require('./user.model');
 
 
 exports.getAll = function (req, res) {
 
   User.find(function (err, users) {
-    if(err) return responses.internalError(res);
+    if(err) return res.send(responses.internalError(res));
 
     else if(!users){
-      return responses.notFound(res, 'USERS_NOT_FOUND');
+      return res.send(responses.notFound('USERS_NOT_FOUND'));
     }
-    return responses.ok(res, '', users);
+    return res.send(responses.ok('', users));
   });
 
 };
 
-exports.getUser = function(req, res, next) {
+exports.getUser = async function(req, res, next) {
+  await User.findOne({_id: req.params.id}, function(err, user) {
 
-  User.findOne({_id: req.params.id}, function(err, user) {
-
-    if(err) return responses.internalError(res);
+    if(err) return res.send(responses.internalError(res));
 
     else if(!user){
-      return responses.notFound(res, 'USER_NOT_FOUND');
+      return res.send(responses.notFound('USER_NOT_FOUND'));
     }
-      return responses.ok(res, '', user);
+      return res.send(responses.ok('', user));
     });
 };
 
@@ -49,9 +45,9 @@ exports.createUser = function (req, res) {
 
       user.save(function (err, next) {
           if (err) {
-              return responses.badRequest(res, "DUPLICATE_EMAIL");
+              return res.send(responses.badRequest("DUPLICATE_EMAIL"));
           }
-          return responses.created(res, 'SUCCESSFUL_USER_CREATION', {name: user.name});
+          return res.send(responses.created('SUCCESSFUL_USER_CREATION', {name: user.name}));
       });
 
   }
@@ -62,20 +58,19 @@ exports.editUser = function (req, res) {
   var user = new User(req.body);
 
   if(!user){
-    return responses.badRequest(res, 'USER_REQUIRED');
+    return res.send(responses.badRequest('USER_REQUIRED'));
   }
   
   User.findOneAndUpdate({_id: req.body._id}, user, {upsert: true, 'new': true}, function (err, updatedUser) {
-
     if(err){
       if (err.code === mongoErrors.DuplicateKey) {
-                return responses.badRequest(res, "DUPLICATE_EMAIL");
+          return res.send(responses.badRequest("DUPLICATE_EMAIL"));
       }
 
-      return responses.internalError(res);
+      return res.send(responses.internalError(res));
     }
 
-    return responses.ok(res, 'UPDATED_USER', updatedUser);
+    return res.send(responses.ok('UPDATED_USER', updatedUser));
   });
 
 };
@@ -83,12 +78,12 @@ exports.editUser = function (req, res) {
 exports.deleteUser =  function(req, res, next) {
 
     if(!req.params.id){
-      return responses.badRequest(res, 'USER_REQUIRED');
+      return res.send(responses.badRequest('USER_REQUIRED'));
     }
 
     User.remove({_id: req.params.id}, function(err) {
-        if(err) return responses.internalError(res);
-        return responses.ok(res, 'REMOVED_USER');
+        if(err) return res.send(responses.internalError(res));
+        return res.send(responses.ok('REMOVED_USER'));
     });
 
 };
