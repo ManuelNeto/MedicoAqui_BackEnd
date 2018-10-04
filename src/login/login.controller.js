@@ -21,7 +21,9 @@ exports.authenticate = async (req, res, next) => {
             password: md5(req.body.password + global.SALT_KEY),
         });
 
-        if(!user) return res.send(responses.notFound('EMAIL_OR_PASSWORD_INVALID'));
+        if(!user) {
+            return res.send(responses.notFound('EMAIL_OR_PASSWORD_INVALID'));
+        }
 
         const token = await auth.generateToken({
             id: user._id,
