@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var crypto = require('crypto');
+const md5 = require('md5');
 
 var UserSchema = mongoose.Schema({
 
@@ -40,23 +40,17 @@ var UserSchema = mongoose.Schema({
         type:String,
         required: true,
         enum: ['Doctor', 'Patient']
-    },
-    hash: String,
-    salt: String
+    }
 });
 
-UserSchema.methods.setPassword = function (password){
-    this.salt = crypto.randomBytes(16).toString('hex');
-    UserSchema.salt = this.salt;
-    this.hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha1').toString('hex');
-    console.log(this.hash);
-    UserSchema.hash = this.hash;
-};
+UserSchema.pre('save', function(next) {
+    // check if password is present and is modified.
+    if ( this.password && this.isModified('password') ) {
+        this.password = md5(this.password + global.SALT_KEY);
+    }
+    next();
+});
 
-UserSchema.methods.validPassword = function(password) {
-    var hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha1').toString('hex');
-    return this.hash === hash;
-};
 
 
 var User = mongoose.model('User', UserSchema);

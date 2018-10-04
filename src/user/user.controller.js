@@ -48,6 +48,7 @@ exports.createUser = function (req, res) {
       var user = new User(req.body);
 
       user.save(function (err, next) {
+          console.log(err);
           if (err) {
               return responses.badRequest(res, "DUPLICATE_EMAIL");
           }

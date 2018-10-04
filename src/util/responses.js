@@ -35,11 +35,11 @@ exports.notFound = function (res, message) {
     });
 };
 
-exports.internalError = function (res) {
-    return res.status(httpStatusCodes.INTERNAL_SERVER_ERROR).json({
+exports.internalError = function () {
+    return {
         status: httpStatusCodes.INTERNAL_SERVER_ERROR,
         message: 'INTERNAL_ERROR'
-    });
+    };
 };
 
 exports.ok = function (res, message, data) {
