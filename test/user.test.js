@@ -1,6 +1,6 @@
 'use strict';
 
-var app = require('../server');
+var app = require('./app');
 var chai = require('chai');
 var request = require('supertest');
 
