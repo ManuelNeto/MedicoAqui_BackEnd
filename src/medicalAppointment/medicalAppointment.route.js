@@ -10,8 +10,8 @@ const auth = require('./../util/auth-service');
 
 router.get('/', auth.authorize, MedicalAppointmentController.getAll);
 router.get('/:id', auth.authorize, MedicalAppointmentController.getMedicalAppointment);
-router.post('/', auth.authorize, MedicalAppointmentController.createMedicalAppointment);
+router.post('/', auth.isPatient, MedicalAppointmentController.createMedicalAppointment);
 router.put('/', auth.authorize, MedicalAppointmentController.editMedicalAppointment);
-router.delete('/:id', auth.authorize, MedicalAppointmentController.deleteMedicalAppointment);
+router.delete('/:id', auth.isPatient, MedicalAppointmentController.deleteMedicalAppointment);
 
 module.exports = router;

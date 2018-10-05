@@ -25,6 +25,8 @@ app.use(function(req, res) {
   res.status(404).send({url: req.originalUrl + ' not found'})
 });
 
+console.log(config.port);
+
 app.listen(config.port);
 
 console.log('Médico Aqui RESTful API server started on: ' + config.port);
