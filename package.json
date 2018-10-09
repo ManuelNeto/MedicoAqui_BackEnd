@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon app.js",
-    "test-unit": "mocha --opts ./test/mocha.opts ./test/user.test.js --timeout 5000"
+    "test-unit": "mocha --opts ./test/mocha.opts ./test/*.js --timeout 5000"
   },
   "repository": {
     "type": "git",

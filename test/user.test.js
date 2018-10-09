@@ -107,7 +107,6 @@ describe('API Tests', function() {
         .set("Content-type", 'application/json')
         .set("x-access-token", token_user)
         .end(function(err, res) {
-          console.log(res.body);
           expect(res.statusCode).to.equal(200);
           expect(res.body.message).to.equal('REMOVED_USER');
           done();
