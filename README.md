@@ -11,3 +11,16 @@ Sistema Web destinado a pacientes com intuito de agendar uma consulta médica de
 NodeJS
 Express
 Npm
+
+# Instalação
+Instale as dependencias e as dev dependencias:
+
+$ npm install
+
+# Após a instalação das dependencias, inicie o servidor:
+
+$ npm start
+
+#Para rodar o ambiente de teste:
+
+$ npm run test-unit
