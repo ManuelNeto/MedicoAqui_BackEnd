@@ -21,6 +21,6 @@ $ npm install
 
 $ npm start
 
-#Para rodar o ambiente de teste:
+# Para rodar o ambiente de teste:
 
 $ npm run test-unit
