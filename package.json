@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon app.js",
-    "test": "NODE_ENV=test mocha --timeout 10000",
-    "test-coverage": "NODE_ENV=test istanbul cover _mocha -- -R spec"
+    "test-unit": "mocha --opts ./test/mocha.opts ./test/user.test.js --timeout 5000"
   },
   "repository": {
     "type": "git",
