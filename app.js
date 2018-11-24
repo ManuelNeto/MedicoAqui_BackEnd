@@ -6,6 +6,7 @@ var express = require('express'),
   mongoose = require('mongoose'),
   config = require('./config/index'),
   bodyParser = require('body-parser'),
+  cors = require('cors'),
   user = require('./src/user/user.model'),
   medicalAppointment = require('./src/medicalAppointment/medicalAppointment.model');
 
@@ -13,10 +14,16 @@ var express = require('express'),
 mongoose.Promise = global.Promise;
 mongoose.connect(config.db);
 
-
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+app.use(function (req, res, next) {
+  res.header('Content-Type', 'application/json');
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();  // sem o next, a chamada para aqui
+});
 
 var routes = require('./src/routes/api.routes');
 routes(app);
