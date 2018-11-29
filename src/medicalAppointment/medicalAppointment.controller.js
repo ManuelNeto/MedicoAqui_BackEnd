@@ -41,7 +41,7 @@ exports.getMedicalAppointment = function(req, res, next) {
 exports.createMedicalAppointment = function (req, res) {
 
       var medicalAppointment = new MedicalAppointment(req.body);
-    
+      console.log(medicalAppointment);
       medicalAppointment.save(function (err, next) {
           if (err) {
               return res.send(responses.badRequest("DUPLICATE_MEDICALAPPOINTMENT"));

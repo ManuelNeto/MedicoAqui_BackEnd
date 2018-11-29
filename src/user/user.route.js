@@ -8,6 +8,7 @@ let router = express.Router();
 let UserController = require('./user.controller');
 
 router.get('/', auth.authorize, UserController.getAll);
+router.get('/doctors', auth.authorize, UserController.getDoctors);
 router.get('/:id', auth.authorize, UserController.getUser);
 router.post('/', UserController.createUser);
 router.put('/', auth.authorize, UserController.editUser);

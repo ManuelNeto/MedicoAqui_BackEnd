@@ -25,6 +25,18 @@ exports.getAll = function (req, res) {
 
 };
 
+exports.getDoctors = async function(req, res, next) {
+  await User.find({userKind: 'Doctor'}, function(err, user) {
+
+    if(err) return res.send(responses.internalError(res));
+
+    else if(!user){
+      return res.send(responses.notFound('USERS_NOT_FOUND'));
+    }
+      return res.send(responses.ok('', user));
+    });
+};
+
 exports.getUser = async function(req, res, next) {
   await User.findOne({_id: req.params.id}, function(err, user) {
 

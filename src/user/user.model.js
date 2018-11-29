@@ -29,11 +29,8 @@ var UserSchema = mongoose.Schema({
     },
 
     available_times: {
-        type: [
-            { date: Date,
-              
-        }],
-        default: []
+        type: [String],
+    
     },
 
     userKind: {
