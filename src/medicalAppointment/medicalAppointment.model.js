@@ -15,11 +15,13 @@ var medical_appointmentSchema = mongoose.Schema({
         required: true
     },
 
-    time: {
-        type: {
-            date: Date
-        },
+    date: {
+        type: String,
         required: true
+    },
+
+    description: {
+        type: String
     },
 
     prognostic: {
