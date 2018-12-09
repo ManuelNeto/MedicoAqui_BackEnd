@@ -37,6 +37,18 @@ exports.getDoctors = async function(req, res, next) {
     });
 };
 
+exports.getDoctorsBySpecialty = async function(req, res, next) {
+  await User.find({userKind: 'Doctor', speciality: req.body.speciality}, function(err, users) {
+
+    if(err) return res.send(responses.internalError(res));
+
+    else if(!users){
+      return res.send(responses.notFound('USERS_NOT_FOUND'));
+    }
+      return res.send(responses.ok('', users));
+    });
+};
+
 exports.getUser = async function(req, res, next) {
   await User.findOne({_id: req.params.id}, function(err, user) {
 

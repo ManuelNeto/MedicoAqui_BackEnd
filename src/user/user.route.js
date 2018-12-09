@@ -11,6 +11,7 @@ router.get('/', auth.authorize, UserController.getAll);
 router.get('/doctors', auth.authorize, UserController.getDoctors);
 router.get('/:id', auth.authorize, UserController.getUser);
 router.post('/', UserController.createUser);
+router.post('/doctorsBySpecialty', UserController.getDoctorsBySpecialty);
 router.put('/', auth.authorize, UserController.editUser);
 router.delete('/:id', auth.authorize, UserController.deleteUser);
 
