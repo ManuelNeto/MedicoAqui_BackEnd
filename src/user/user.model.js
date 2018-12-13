@@ -24,7 +24,7 @@ var UserSchema = mongoose.Schema({
         required: true
     },
 
-    specialty: {
+    speciality: {
         type: String
     },
 
