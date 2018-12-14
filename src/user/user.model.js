@@ -48,6 +48,32 @@ UserSchema.pre('save', function(next) {
     next();
 });
 
+var User = mongoose.model('User', UserSchema);
+
+var createDoctor = function() {
+
+    new User({
+        name : "Kilma",
+        age : 47,
+        userKind : "Doctor",
+        speciality : "Cardio",
+        email : "kilma@email.com",
+        password : "123456"
+    }).save(function(error) {
+        if (error) {
+            console.log(error);
+            console.error(" Data Insetion error! ");
+        }
+    });
+};
+
+//funcao para criar as salas somente uma unica vez.
+User.find(function (err, User) {
+    if (User.length == 0) {
+        createDoctor();
+    }
+});
+
 
 
 var User = mongoose.model('User', UserSchema);

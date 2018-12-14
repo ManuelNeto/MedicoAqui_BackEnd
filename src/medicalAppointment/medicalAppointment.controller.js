@@ -39,9 +39,9 @@ exports.getMedicalAppointment = function(req, res, next) {
 };
 
 exports.createMedicalAppointment = function (req, res) {
-    
+      console.log('oi');
       var medicalAppointment = new MedicalAppointment(req.body);
-   
+      console.log(req.body);  
       medicalAppointment.save(function (err, next) {
           if (err) {
               return res.send(responses.badRequest("DUPLICATE_MEDICALAPPOINTMENT"));
