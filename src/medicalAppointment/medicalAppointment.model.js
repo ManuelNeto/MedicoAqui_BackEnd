@@ -4,14 +4,12 @@ var User = require('../user/user.model');
 var medical_appointmentSchema = mongoose.Schema({
 
     doctor:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        type: String,
         required: true
     },
 
     patient: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        type: String,
         required: true
     },
 
@@ -31,6 +29,28 @@ var medical_appointmentSchema = mongoose.Schema({
 
 
 });
+
+var MedicalAppointment = mongoose.model('Medical_appointment', medical_appointmentSchema);
+
+var createMedical_appointment = function() {
+
+    new MedicalAppointment({
+        date: "25/02/2018", doctor: 'Sarah', prognostic: "prognostic", description: "description", patient: "Zé"
+    }).save(function(error) {
+        if (error) {
+            console.log(error);
+            console.error(" Data Insetion error! ");
+        }
+    });
+};
+
+//funcao para criar as salas somente uma unica vez.
+MedicalAppointment.find(function (err, medical_appointment) {
+    if (medical_appointment.length == 0) {
+      createMedical_appointment();
+    }
+});
+ 
 
 var medicalAppointment = mongoose.model('Medical_appointment', medical_appointmentSchema);
 
